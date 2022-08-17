@@ -32,7 +32,7 @@ Notes:
   * Assemblies should be in fasta format.
   * BuscoCode accepts gzip-compressed files.
 ```
-This script should produce a directory called `Alignments` which contains subdirectories for aech taxon and `species.txt` file that contains the list of all taxa. 
+This script should produce a directory called `Alignments` which contains subdirectories for each taxon and `species.pickle` file that contains the list of all taxa. 
 
 ### 2. buscoAln.py
 This script takes as input the directory that contains the `BuscoCode.py` output. 
