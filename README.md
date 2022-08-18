@@ -12,6 +12,7 @@ You can either download just the `BuscoCode.py` script from this repo, or you ca
 mkdir BuscoMSA
 cd BuscoMSA
 git clone git clone https://github.com/suhanaser/BuscoMSA.git
+chmod +x BuscoMSA/BuscoCode.py
 ```
 Now you can run the script as follows
 ```
@@ -19,7 +20,7 @@ python BuscoMSA/BuscoCode.py
 ```
 To get the help information, just do this:
 ```
-python BuscoMSA/BuscoCode.py -h
+BuscoMSA/BuscoCode.py -h
 ```
 That should show you the following help:
 ```
