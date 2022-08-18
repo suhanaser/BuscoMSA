@@ -31,11 +31,13 @@ def BuscoCode():
                     if FileList:
                         for file in FileList:
                             species.append(os.path.basename(file).split('.')[0])
-                            runBusco(DirName,file)
+                            outDir = runBusco(DirName,file)
                 with open('Alignments/species.pickle', 'wb') as fp:
                     pickle.dump(species, fp)
-                print('\n{} Busco folders finished succefuly for taxa {}\n'.format(len(species), species))
-                print('All taxa names can be found in Alignments/species.pickle \n')
+                logf = open(os.path.join(outDir, 'logs', 'busco.log'), 'r')
+                if 'BUSCO analysis done.' in logf:
+                    print('\n{} Busco folders finished succefuly for taxa {}\n'.format(len(species), species))
+                    print('All taxa names can be found in ./Alignments/species.pickle \n')
             else:
                 raise SystemExit('Error: No such directory {}'.format(sys.argv[1]))
     elif len(sys.argv) > 2:
@@ -52,20 +54,32 @@ def runBusco(Dirname,file):
         the directory where the assembly files are stored.
     '''
     wd = os.getcwd()
-    aln_dir = os.path.join(wd, r'Alignments')
-    out = os.path.basename(file).split('.')[0]
-    if not os.path.exists(os.path.join(aln_dir,out)):
+    out = r'Alignments/' + os.path.basename(file).split('.')[0]
+    if not os.path.exists(os.path.join(wd,out)):
         if is_gz_file(os.path.join(Dirname,file)):
             with gzip.open(os.path.join(Dirname,file), 'rb') as inf:
                 with tempfile.NamedTemporaryFile() as tmp:
                     shutil.copyfileobj(inf, tmp)
-                    bus = " ".join(['busco -i',tmp.name,'-o',os.path.join(aln_dir,out),'-m genome --auto-lineage-euk'])
+                    bus = " ".join(['busco -i',tmp.name,'-o',out,'-m genome --auto-lineage-euk'])
                     os.system(bus)
             tmp = tempfile.NamedTemporaryFile(delete=True)
         else:
-            bus = " ".join(['busco -i',os.path.join(Dirname,file),'-o',os.path.join(aln_dir,out),'-m genome --auto-lineage-euk'])
+            bus = " ".join(['busco -i',os.path.join(Dirname,file),'-o',out,'-m genome --auto-lineage-euk'])
             os.system(bus)
-    return
+    else:
+        force = input("\nDirectory {} already exist. Do you want to rewrite existing files? Y/N \t".format(os.path.join(wd,out)))
+        if force == 'Y' or force == 'y':
+            if is_gz_file(os.path.join(Dirname,file)):
+                with gzip.open(os.path.join(Dirname,file), 'rb') as inf:
+                    with tempfile.NamedTemporaryFile() as tmp:
+                        shutil.copyfileobj(inf, tmp)
+                        bus = " ".join(['busco -i',tmp.name,'-o',out,'-m genome --auto-lineage-euk -f'])
+                        os.system(bus)
+                tmp = tempfile.NamedTemporaryFile(delete=True)
+            else:
+                bus = " ".join(['busco -i',os.path.join(Dirname,file),'-o',out,'-m genome --auto-lineage-euk -f'])
+                os.system(bus)
+    return os.path.join(wd,out)
 
 def is_gz_file(filepath):
     with open(filepath, 'rb') as test_f:
