@@ -11,15 +11,14 @@ You can either download just the `BuscoCode.py` script from this repo, or you ca
 ```
 git clone git clone https://github.com/suhanaser/BuscoMSA.git
 cd BuscoMSA
-chmod +x BuscoCode.py
 ```
 Now you can run the script as follows
 ```
-python BuscoMSA/BuscoCode.py
+python BuscoCode.py
 ```
 To get the help information, just do this:
 ```
-BuscoMSA/BuscoCode.py -h
+python BuscoCode.py -h
 ```
 That should show you the following help:
 ```
@@ -45,11 +44,11 @@ if you didn't modify the `BuscoCode.py`script, the name of this directory should
  #### Running the script
  If you cloned the whole BuscoMSA repo, you can run the script as follows
 ```
-python BuscoMSA/buscoAln.py
+python buscoAln.py
 ```
 To get the help information, just do this:
 ```
-python BuscoMSA/BuscoCode.py -h
+python buscoAln.py -h
 ```
 The syntax for this script is:
 ```
