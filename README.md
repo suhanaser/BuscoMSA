@@ -9,10 +9,9 @@ Note: This script calls Busco software via `os.system()`. Therefore, first you n
 #### Running the script
 You can either download just the `BuscoCode.py` script from this repo, or you can get the whole repo. It's proabably easiest to do the latter, like this:
 ```
-mkdir BuscoMSA
-cd BuscoMSA
 git clone git clone https://github.com/suhanaser/BuscoMSA.git
-chmod +x BuscoMSA/BuscoCode.py
+cd BuscoMSA
+chmod +x BuscoCode.py
 ```
 Now you can run the script as follows
 ```
