@@ -11,7 +11,6 @@ import sys
 import shutil
 import pickle
 import tempfile
-from tqdm import tqdm
 
 def BuscoCode():
     if len(sys.argv) == 1:
@@ -30,11 +29,12 @@ def BuscoCode():
                 species = []
                 for DirName, subdirList, FileList in os.walk(sys.argv[1]):
                     if FileList:
-                        for file in tqdm(FileList):
+                        for file in FileList:
                             species.append(os.path.basename(file).split('.')[0])
                             runBusco(DirName,file)
                 with open('Alignments/species.pickle', 'wb') as fp:
                     pickle.dump(species, fp)
+                print('\n{} Busco folders finished succefuly for taxa {}\n'.format(len(species), species))
                 print('All taxa names can be found in Alignments/species.pickle \n')
             else:
                 raise SystemExit('Error: No such directory {}'.format(sys.argv[1]))
