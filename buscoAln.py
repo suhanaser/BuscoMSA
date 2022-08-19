@@ -92,7 +92,7 @@ def superAln(wd, mode, outf):
     else: #if output directory existe, first clean the old output files
         for file in os.listdir(output):
             os.remove(os.path.join(output, file))
-    with open('species.txt', 'rb') as f:
+    with open('species.pickle', 'rb') as f:
         species = pickle.load(f)
     extractBuscoPhylo(species,wd,mode)
     file_list = []
